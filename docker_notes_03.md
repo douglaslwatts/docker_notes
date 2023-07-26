@@ -4,7 +4,7 @@
 
 ---
 
-**`docker logs <containerName|ID>`**
+### `docker logs <containerName|ID>`
 
 `docker run --name example -d ubuntu bash -c "catt /etc/passwd"`
 
@@ -12,7 +12,7 @@ Since we misspelled the command, the container will crash and we can see the log
 
 `docker logs example`
 
-**`docker kill <containerName|ID>`**
+### `docker kill <containerName|ID>`
 
 If we have a long running container as below:
 
@@ -29,7 +29,7 @@ and then remove it:
 When using named containers, we sometimes want to reuse a name and must rm the old one with that
 name first.
 
-**`--memory`**
+### `--memory`
 
 We can set the maximum allowed memory for a container as below:
 

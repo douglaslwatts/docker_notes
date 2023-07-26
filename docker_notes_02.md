@@ -64,7 +64,7 @@ When we run a container there are a few things to remember:
   (even if we have started other processes in it that have not exited)
 - Containers have names (if we do not give it one, docker will make one up)
 
-### **--rm**
+### `--rm`
 
 We can use the `--rm` flag to tell docker not to keep the container once exited. This can keep our
 system from saving so many stopped containers and is a shortcut for running `docker rm containerName`
