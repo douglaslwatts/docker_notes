@@ -57,7 +57,7 @@ Orchestration, which will be later in these notes, generally requires specifying
    My own take from number 2; Maybe better to have a volume such that the data would persist after
    deleting the container.
 
-## Container Networking
+## Exposing Ports
 
 ---
 
