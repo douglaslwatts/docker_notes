@@ -120,8 +120,8 @@ Repeat the above example without specifying the outside port:
 2. We can find what ports docker chose for outside the container in the second terminal
    ```
    > docker port echo-server
-     45678/tcp -> 0.0.0.0:50508
-     45679/tcp -> 0.0.0.0:50509
+   45678/tcp -> 0.0.0.0:50508
+   45679/tcp -> 0.0.0.0:50509
    ```
 
    So, lets run `netcat` locally this time
@@ -133,4 +133,3 @@ Repeat the above example without specifying the outside port:
    `nc localhost 50509`
 
 4. We can get the same result as before by entering some text in the second terminal.
-
