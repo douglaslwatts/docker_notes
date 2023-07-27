@@ -8,7 +8,7 @@ We can run as many containers based on a given image as we want
 
 ## Run a container from an image, but give it a custom name
 
-`docker run -dit --name=custom_name debian`
+`docker run -dti --name=custom_name debian`
 
 ## Remove a stopped container. `rmi` removes images, while `rm` removes containers. <br>
 
@@ -95,7 +95,7 @@ or
 
 We can attach to a running container by its ID or NAME.
 
-`docker run --rm -dit ubuntu`
+`docker run --rm -dti ubuntu`
 
 `docker attach <NAME|ID>`
 

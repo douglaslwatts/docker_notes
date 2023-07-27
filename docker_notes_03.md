@@ -61,45 +61,47 @@ Orchestration, which will be later in these notes, generally requires specifying
 
 ---
 
-* Programs in containers are isolated form the internet by default.
-* Containers can be grouped into "private" networks
-* Who can connect to whom is explicitly chosen
-* Expose ports to let connections in
+- Programs in containers are isolated form the internet by default.
+- Containers can be grouped into "private" networks
+- Who can connect to whom is explicitly chosen
+- Expose ports to let connections in
   - Explicitly specify the port inside and outside the container
   - Expose as many ports as are needed
   - Requires coordination between Containers
   - Makes it easy to find the exposed ports
-* Private networks to connect between containers
+- Private networks to connect between containers
 
 #### Example:
 
 1. Open 3 terminals
 2. In the first terminal
+
    - Run a terminal interactive container exposing ports 45678 and 45679 exposing the same port
      on the inside as out, and name the contaner echo-server. We use ubuntu:14.04 since it has
      `nc` installed already.
 
-      `docker run --rm -it -p 45678:45678 -p 45679:45679 --name echo-server ubuntu:14.04 bash`
+     `docker run --rm -ti -p 45678:45678 -p 45679:45679 --name echo-server ubuntu:14.04 bash`
 
    - Inside the container run:
 
      `nc -lp 45678 | nc -lp 45679`
+
 3. In the second terminal we could run `nc localhost 45678`, but lets use a docker container instead
 
-    `docker run --rm -it ubuntu:14.04 bash`
+   `docker run --rm -ti ubuntu:14.04 bash`
 
-    - Docker provides the special name `host.docker.internal` to access localhost since the containers
-      are isolated. Inside the container run:
+   - Docker provides the special name `host.docker.internal` to access localhost since the containers
+     are isolated. Inside the container run:
 
-      `nc host.docker.internal 45678`
+     `nc host.docker.internal 45678`
 
 4. In the third terminal lets do the same with port 45679
 
-    `docker run --rm -it ubuntu:14.04 bash`
+   `docker run --rm -ti ubuntu:14.04 bash`
 
-    - Inside the container run:
+   - Inside the container run:
 
-      `nc host.docker.internal 45679`
+     `nc host.docker.internal 45679`
 
 5. Any input to port 45678 on the echo-server will be sent out on port 45679. So, back in the
    second terminal, in the container with `netcat` running on localhost to port 45678, type
@@ -115,18 +117,20 @@ Repeat the above example without specifying the outside port:
 
 1. First Terminal:
 
-   `docker run --rm -it -p 45678 -p 45679 --name echo-server ubuntu:14.04 bash`
+   `docker run --rm -ti -p 45678 -p 45679 --name echo-server ubuntu:14.04 bash`
 
 2. We can find what ports docker chose for outside the container in the second terminal
-   ```
-   > docker port echo-server
-   45678/tcp -> 0.0.0.0:50508
-   45679/tcp -> 0.0.0.0:50509
-   ```
 
-   So, lets run `netcat` locally this time
+<pre>
+dlwatts@terra ~ > docker port echo-server
+45678/tcp -> 0.0.0.0:50508
+45679/tcp -> 0.0.0.0:50509
+dlwatts@terra ~ >
+</pre>
 
-   `nc localhost 50508`
+So, lets run `netcat` locally this time
+
+`nc localhost 50508`
 
 3. In the third terminal lets receive the output from the echo server
 

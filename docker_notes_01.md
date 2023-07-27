@@ -1,14 +1,17 @@
 # Getting Started with Docker
+
 ---
 
-`docker run -dit debian`
+`docker run -dti debian`
 
 -d => run in detached mode in the background <br>
--i => run in interactive mode, such thas stdin is open for inputs <br>
 -t => container will have a psuedo tty open <br>
+-i => run in interactive mode, such that stdin is open for inputs <br>
 
-so, -it is what makes it possible to open a shell in the running container while
+so, -ti is what makes it possible to open a shell in the running container while
 the -d keeps the container running in the background so it does not immediately shutdown after starting.
+
+We can think of it as telling Docker to run a detached, terminal interactive container.
 
 `docker ps` => view running containers
 
@@ -24,7 +27,7 @@ the -d keeps the container running in the background so it does not immediately 
 
 `docker inspect <container_id | container name>`
 
-## download image ...default tag is "latest"
+## download image ...default tag is "latest" (`docker run` will pull an image if needed)
 
 `docker pull nginx`
 
