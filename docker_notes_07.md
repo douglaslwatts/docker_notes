@@ -134,6 +134,9 @@ dlwatts@terra ~ > cat .docker/config.json
 dlwatts@terra ~ >
 </pre>
 
+Instructions for running Docker as a non-root user can be found at
+[docs.docker.com/engine/security/rootless/](https://docs.docker.com/engine/security/rootless/).
+
 Now lets login, tag an image, and push it to a repository.
 
 <pre>
@@ -151,23 +154,23 @@ dlwatts@terra ~ > cat .docker/config.json
         "currentContext": "rootless"
 }
 dlwatts@terra ~ > docker images
-REPOSITORY         TAG       IMAGE ID       CREATED         SIZE
-archlinux          latest    1105a6ef0052   3 days ago      432MB
-fedora             latest    ad2032316c26   3 weeks ago     190MB
-nginx              latest    021283c8eb95   3 weeks ago     187MB
-debian             latest    3676c78a12ad   3 weeks ago     116MB
-ubuntu             latest    5a81c4b8502e   4 weeks ago     77.8MB
-hello-world        latest    feb5d9fea6a5   22 months ago   13.3kB
-ubuntu             14.04     13b66b487594   2 years ago     197MB
-dlwatts@terra ~ > docker tag archlinux dlwatts/archlinux-server:v.1.1
-dlwatts@terra ~ > docker push dlwatts/archlinux-server:v.1.1
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+archlinux     latest    1105a6ef0052   3 days ago      432MB
+fedora        latest    ad2032316c26   3 weeks ago     190MB
+nginx         latest    021283c8eb95   3 weeks ago     187MB
+debian        latest    3676c78a12ad   3 weeks ago     116MB
+ubuntu        latest    5a81c4b8502e   4 weeks ago     77.8MB
+hello-world   latest    feb5d9fea6a5   22 months ago   13.3kB
+ubuntu        14.04     13b66b487594   2 years ago     197MB
+dlwatts@terra ~ > docker tag archlinux dlwatts/archlinux-server:v.1.0
+dlwatts@terra ~ > docker push dlwatts/archlinux-server:v.1.0
 The push refers to repository [docker.io/dlwatts/archlinux-server]
-667877c95a48: Mounted from dlwatts/test-image-repo
-e3946f2a3c3f: Mounted from dlwatts/test-image-repo
-v.1.1: digest: sha256:e21266b93a65192313d3857651abf2b5a194bad9438b3d8a565aeeb3b4400d5e size: 738
+667877c95a48: Pushed
+e3946f2a3c3f: Mounted from library/archlinux
+v.1.0: digest: sha256:e21266b93a65192313d3857651abf2b5a194bad9438b3d8a565aeeb3b4400d5e size: 738
 dlwatts@terra ~ > docker images
 REPOSITORY                 TAG       IMAGE ID       CREATED         SIZE
-dlwatts/archlinux-server   v.1.1     1105a6ef0052   3 days ago      432MB
+dlwatts/archlinux-server   v.1.0     1105a6ef0052   3 days ago      432MB
 archlinux                  latest    1105a6ef0052   3 days ago      432MB
 fedora                     latest    ad2032316c26   3 weeks ago     190MB
 nginx                      latest    021283c8eb95   3 weeks ago     187MB
@@ -180,6 +183,3 @@ dlwatts@terra ~ >
 
 Now I have a repo called archlinux-server in my namespace with the image I just pushed. You can see
 your repos by logging in at dockerhub.
-
-Instructions for running Docker as a non-root user can be found at
-[docs.docker.com/engine/security/rootless/](https://docs.docker.com/engine/security/rootless/).
