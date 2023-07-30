@@ -112,7 +112,8 @@ The following creates an example that runs an angular app using the nginx image 
 
 2. Create the below Docker file in the base directory of the Angular app.
 
-    <pre>FROM node AS builder
+    <pre>
+    FROM node AS builder
 
     WORKDIR /usr/local/app
     COPY ./ /usr/local/app
