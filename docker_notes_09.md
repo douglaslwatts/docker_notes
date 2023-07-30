@@ -104,3 +104,59 @@ dlwatts@terra ~ > docker run git-count-sm
 The word git appears 585 times in the github html
 dlwatts@terra ~ >
 </pre>
+
+The following is an example that runs an angular app using the nginx image as a base
+
+<pre>
+FROM node AS builder
+
+WORKDIR /usr/local/app
+COPY ./ /usr/local/app
+RUN npm install
+RUN npm run build
+
+FROM nginx
+
+COPY --from=builder /usr/local/app/dist/somesite.com /usr/share/nginx/html
+EXPOSE 80
+</pre>
+
+Build The image, Run a container from it, and go to localhost:80 in a browser to see the running app.
+
+<pre>
+dlwatts@terra ~ > docker build -t somesite.com .
+[+] Building 28.6s (15/15) FINISHED                                                                                                                                                                   docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                                                            0.1s
+ => => transferring dockerfile: 358B                                                                                                                                                                            0.0s
+ => [internal] load .dockerignore                                                                                                                                                                               0.1s
+ => => transferring context: 2B                                                                                                                                                                                 0.0s
+ => [internal] load metadata for docker.io/library/nginx:latest                                                                                                                                                 5.6s
+ => [internal] load metadata for docker.io/library/node:latest                                                                                                                                                  5.6s
+ => [auth] library/node:pull token for registry-1.docker.io                                                                                                                                                     0.0s
+ => [auth] library/nginx:pull token for registry-1.docker.io                                                                                                                                                    0.0s
+ => [builder 1/5] FROM docker.io/library/node@sha256:64b71834718b859ea389790ae56e5f2f8fa9456bf3821ff75fa28a87a09cbc09                                                                                           0.0s
+ => [stage-1 1/2] FROM docker.io/library/nginx@sha256:67f9a4f10d147a6e04629340e6493c9703300ca23a2f7f3aa56fe615d75d31ca                                                                                          0.0s
+ => [internal] load build context                                                                                                                                                                               0.8s
+ => => transferring context: 4.89MB                                                                                                                                                                             0.7s
+ => CACHED [builder 2/5] WORKDIR /usr/local/app                                                                                                                                                                 0.0s
+ => [builder 3/5] COPY ./ /usr/local/app                                                                                                                                                                        8.5s
+ => [builder 4/5] RUN npm install                                                                                                                                                                               3.5s
+ => [builder 5/5] RUN npm run build                                                                                                                                                                             9.7s
+ => CACHED [stage-1 2/2] COPY --from=builder /usr/local/app/dist/somesite.com /usr/share/nginx/html                                                                                                        0.0s
+ => exporting to image                                                                                                                                                                                          0.0s
+ => => exporting layers                                                                                                                                                                                         0.0s
+ => => writing image sha256:e89200ba1a10b4014aede691ec441f3943153ced12614275187c2b28789e77e9                                                                                                                    0.0s
+ => => naming to docker.io/library/somesite.com
+dlwatts@terra ~ > docker run -d -p 8080:80 --name somesite_container somesite.com
+ea47f24d2abeb969550ee2c82172199e41bfa52dc020dfa1f5edfc2cb4a9aadc
+dlwatts@terra ~ > docker_ps -l
+CONTAINER ID    ea47f24d2abe
+IMAGE           somesite.com
+CREATED         About a minute ago
+STATUS          Up About a minute
+PORTS           0.0.0.0:8080->80/tcp, :::8080->80/tcp
+NAMES           somesite_container
+dlwatts@terra ~ >
+</pre>
+
+The app is now being served at localhost:80 until the container is stopped.
