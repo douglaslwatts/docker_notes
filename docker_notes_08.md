@@ -34,7 +34,7 @@
 
   NOTE: Each step/line is a call to `docker run ...` and then to `docker commit ...`
 
-| <div style="width: 400px">Statement</div>    | Use                                                                                                      |
+| <div style="width: 500px">Statement</div>    | Use                                                                                                      |
 | :------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
 | MAINTAINER first last \<user@email.com\>     | Define the author of the Dockerfile                                                                      |
 | FROM image_name                              | Specify and image to start from                                                                          |
