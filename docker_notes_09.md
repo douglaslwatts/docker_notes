@@ -171,7 +171,7 @@ Open `src/app/app.component.html` and add an `h1` just above the `h2` in the def
 
 `<h1>Hello Dockerized Angular App</h1>`
 
-Now kill the running container, build a new image that will have version of the app, and run
+Now kill the running container, build a new image that will have the new version of the app, and run
 a container from that image.
 
 <pre>
